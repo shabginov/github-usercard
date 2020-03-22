@@ -56,11 +56,13 @@ const followersArray = [];
 */
 
 // Step 1 Sending a GET request to the URL
-// axios.get('https://api.github.com/users/shabginov')
-// .then(response => {
-//   console.log('response', response.data);
-//   // console.log('response', response.data.bio);
-// })
+axios
+.get('https://api.github.com/users/shabginov')
+.then(response => {
+  console.log('response', response.data);
+  cardCreator(response.data);
+  // console.log('response', response.data.bio);
+})
 
 // Step 3 Creating a component function
 
@@ -108,19 +110,20 @@ function cardCreator(obj) {
   console.log(card);
   
   // Adding text content to the elements
-  // img.href = 'link';
-  // username.textContent = obj.data.login;
-  link.href = 'some text';
-  location.textContent = 'Location:';
+  img.href = obj.avatar_url;
+  h3.textContent = obj.name;
+  username.textContent = `${obj.login}`;
+  link.setAttribute(`href`, obj.html_url);
+  location.textContent = `Location: ${obj.location}`;
   profile.textContent = 'Profile:'
-  followers.textContent = 'Followers:';
-  following.textContent = 'Following:';
-  bio.textContent = 'Bio:';
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
   
   // console.log(cards);
   // console.log(card);
   // console.log(cardInfo);
-  // return card;
+  return card;
 }
 
 // console.log(compomentCreator(obj));
@@ -129,4 +132,4 @@ function cardCreator(obj) {
 
 
 // cards.appendChild()
-console.log(cardCreator());
+// console.log(cardCreator());
