@@ -125,11 +125,3 @@ function cardCreator(obj) {
   // console.log(cardInfo);
   return card;
 }
-
-// console.log(compomentCreator(obj));
-// Step 4: Pass the data received from Github into your function, 
-          //  create a new component and add it to the DOM as a child of .cards
-
-
-// cards.appendChild()
-// console.log(cardCreator());
