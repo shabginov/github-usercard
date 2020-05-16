@@ -24,7 +24,13 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['harmouche', 'StrayLove', 'zbrown36', 'dlittle-525', 'reannalp'];
+followersArray.forEach(followers => {
+  axios.get(`https://api.github.com/users/${followers}`)
+  .then(response => {
+    cards.appendChild(cardCreator(response));
+  })
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -61,7 +67,9 @@ const followersArray = [];
 
 axios.get('https://api.github.com/users/shabginov')
   .then(response => {
-    console.log(response.data)
+    // console.log(response.data)
+    cards.appendChild(cardCreator(response.data));
+
   })
   .catch(error => console.log(error))
 
@@ -99,7 +107,7 @@ function cardCreator(obj) {
   const bio = document.createElement('p');
 
   // setting classes
-  card.classList.add('.card');
+  card.classList.add('card');
   cardInfo.classList.add('card-info');
   name.classList.add('name');
   userName.classList.add('username');
@@ -117,9 +125,9 @@ function cardCreator(obj) {
   profile.appendChild(address);
 
   // setting text
-  img.setAttribute('src', obj.avatar_url);
+  img.src = obj.avatar_url;
   name.textContent = obj.name;
-  userNameq.textContent = obj.login;
+  userName.textContent = obj.login;
   location.textContent = obj.location;
   address.setAttribute('href', obj.html_url);
   followers.textContent = obj.followers;
@@ -129,3 +137,9 @@ function cardCreator(obj) {
   return card;
 
 }
+
+const cards = document.querySelector('.cards');
+
+// followersArray.forEach(githubHandle => {
+//   cards.appendChild(cardCreator(githubHandle));
+// })
