@@ -28,42 +28,9 @@ const followersArray = ['harmouche', 'StrayLove', 'zbrown36', 'dlittle-525', 're
 followersArray.forEach(followers => {
   axios.get(`https://api.github.com/users/${followers}`)
   .then(response => {
-    cards.appendChild(cardCreator(response));
+    cards.appendChild(cardCreator(response.data));
   })
 })
-
-/* Step 3: Create a function that accepts a single object as its only argument,
-          Using DOM methods and properties, create a component that will return the following DOM element:
-
-<div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div>
-
-*/
-
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
-
-/* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
-           https://api.github.com/users/<your name>
-*/
 
 axios.get('https://api.github.com/users/shabginov')
   .then(response => {
@@ -72,26 +39,6 @@ axios.get('https://api.github.com/users/shabginov')
 
   })
   .catch(error => console.log(error))
-
-  /* Step 3: Create a function that accepts a single object as its only argument,
-          Using DOM methods and properties, create a component that will return the following DOM element:
-
-<div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div>
-
-*/
 
 function cardCreator(obj) {
   const card = document.createElement('div');
@@ -130,16 +77,15 @@ function cardCreator(obj) {
   userName.textContent = obj.login;
   location.textContent = obj.location;
   address.setAttribute('href', obj.html_url);
-  followers.textContent = obj.followers;
-  following.textContent = obj.following;
-  bio.textContent = obj.bio;
+  address.textContent = 'address to users github page';
+  
+  profile.TEXT_NODE = `Profile: ${address}`;
+  // console.log(address);
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
 
   return card;
-
 }
 
 const cards = document.querySelector('.cards');
-
-// followersArray.forEach(githubHandle => {
-//   cards.appendChild(cardCreator(githubHandle));
-// })
